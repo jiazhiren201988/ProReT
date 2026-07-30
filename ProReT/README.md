@@ -4,11 +4,6 @@
 inverse alignment between a disease signature and LINCS perturbation
 signatures in a shared, user-supplied gene-program representation.
 
-ProReT is the reusable model implementation accompanying a Bioinformatics
-Original Paper. Paper-only benchmarking (baseline/SOTA comparisons, RepoDB
-validation, phenotype permutations and external cohorts) is intentionally
-kept outside the package so that the public API remains focused and stable.
-
 ## Model
 
 For a signed gene-level signature \(z\) and a gene-by-program basis \(W\),
@@ -29,9 +24,6 @@ and reversal is the negative cosine between disease and drug coordinates.
 LINCS instances are summarized by the median within compound-cell conditions,
 then reversal scores are averaged across at least three cell lines.
 
-Because the supported cNMF `gene_spectra_score` matrices are signed, ProReT
-calls these quantities **signed program-template alignments**, not cNMF usage
-or non-negative program activity.
 
 ## Inputs
 
