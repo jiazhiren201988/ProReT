@@ -1,0 +1,41 @@
+Package: ProReT
+Type: Package
+Title: Program-Level Reversal of Transcriptomes for Drug Repurposing
+Version: 0.1.0
+Authors@R: c(
+    person("Author", "Name", email = "author@example.org",
+           role = c("aut", "cre"))
+    )
+Description: Implements signed program-template alignment for transcriptomic
+    drug repurposing. Disease signatures estimated from GEO Series Matrix
+    files and LINCS L1000 compound perturbations are projected through the
+    same user-supplied gene-by-program basis. Correlation among non-orthogonal
+    templates is handled by regularized Gram whitening, and compounds are
+    ranked by cross-cell-line aggregation of inverse cosine alignment.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: false
+Depends:
+    R (>= 4.0.0)
+Imports:
+    data.table,
+    digest,
+    methods,
+    stats,
+    tools,
+    utils
+Suggests:
+    AnnotationDbi,
+    Biobase,
+    cmapR,
+    curl,
+    GEOquery,
+    hgu133a.db,
+    jsonlite,
+    limma,
+    org.Hs.eg.db,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+URL: https://github.com/USERNAME/ProReT
+BugReports: https://github.com/USERNAME/ProReT/issues
+Config/roxygen2/version: 8.0.0
