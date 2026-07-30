@@ -4,8 +4,6 @@ ProReT（Program-space Reversal of Transcription）将疾病转录签名与 LINC
 药物扰动签名投影到同一套用户上传的 gene-by-program 基上，并依据
 program 空间中的反向一致性对药物排序。
 
-本 R 包只包含模型核心流程，不包含论文专用的 baseline、SOTA、RepoDB、
-置换检验、bootstrap 或外部验证脚本。
 
 ## 用户需要准备
 
