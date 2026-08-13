@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rcheck
+*.tar.gz
+data/lincs/
+cache/
+results/
+release-assets/

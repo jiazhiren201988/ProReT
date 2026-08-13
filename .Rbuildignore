@@ -1,0 +1,14 @@
+^.*[.]Rproj$
+^[.]Rproj[.]user$
+^[.]github$
+^[.]gitignore$
+^CODE_OF_CONDUCT[.]md$
+^CONTRIBUTING[.]md$
+^SECURITY[.]md$
+^GITHUB_RELEASE_CHECKLIST[.]md$
+^data-raw$
+^release-assets$
+^[.]git$
+^ProReT[.]Rcheck$
+^ProReT_[0-9.]+[.]tar[.]gz$
+^CITATION[.]cff$

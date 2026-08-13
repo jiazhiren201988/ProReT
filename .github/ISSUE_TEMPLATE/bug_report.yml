@@ -1,0 +1,23 @@
+name: Bug report
+description: Report a reproducible problem in ProReT
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: Describe the observed and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproducible example
+      description: Include minimal code and non-sensitive input metadata.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Session information
+      description: Include sessionInfo(), ProReT version and reference checksum.
+    validations:
+      required: true
