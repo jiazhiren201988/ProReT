@@ -11,13 +11,16 @@ toy_basis <- function(order = NULL) {
 }
 
 toy_drugs <- function(basis, disease_gene) {
+  other_gene <- stats::setNames(
+    sin(seq_along(disease_gene)), names(disease_gene)
+  )
   x <- cbind(
     same_1 = disease_gene,
     same_2 = disease_gene * 0.95,
     reverse_1 = -disease_gene,
     reverse_2 = -disease_gene * 0.95,
-    other_1 = rev(disease_gene),
-    other_2 = rev(disease_gene)
+    other_1 = other_gene,
+    other_2 = other_gene
   )
   rownames(x) <- names(disease_gene)
   md <- data.frame(

@@ -68,7 +68,13 @@ normalize_columns <- function(x) {
   sweep(x, 2L, norms, "/")
 }
 
-hash_object <- function(x) digest::digest(x, algo = "sha256", serialize = TRUE)
+hash_object <- function(x) {
+  # Serialization version 2 uses the portable XDR representation and avoids
+  # checksum drift between supported R releases and operating systems.
+  digest::digest(
+    x, algo = "sha256", serialize = TRUE, serializeVersion = 2L
+  )
+}
 
 file_sha256 <- function(path) {
   digest::digest(file = assert_file(path), algo = "sha256", serialize = FALSE)
@@ -92,17 +98,28 @@ basis_projection_checksum <- function(basis, core_genes) {
 
 drug_payload_checksum <- function(signatures, core_genes, program_names,
                                   projection_checksum) {
-  signatures <- as.data.frame(signatures, stringsAsFactors = FALSE)
-  canonical_columns <- lapply(signatures, function(column) {
+  if (!is.list(signatures)) {
+    stop("signatures must be a data-frame-like list.", call. = FALSE)
+  }
+  signature_names <- names(signatures)
+  signature_nrow <- if (length(signatures)) length(signatures[[1L]]) else 0L
+  if (length(signatures) &&
+      any(vapply(signatures, length, integer(1L)) != signature_nrow)) {
+    stop("All signature columns must have equal length.", call. = FALSE)
+  }
+  canonical_columns <- lapply(seq_along(signatures), function(i) {
+    column <- signatures[[i]]
     if (is.factor(column)) column <- as.character(column)
     if (inherits(column, c("POSIXct", "POSIXlt", "Date"))) {
       column <- as.character(column)
     }
+    if (is.character(column)) column <- enc2utf8(column)
     attributes(column) <- NULL
     column
   })
   hash_object(list(
-    names(signatures), canonical_columns,
+    as.integer(signature_nrow), enc2utf8(signature_names),
+    vapply(canonical_columns, hash_object, character(1L)),
     as.character(core_genes), as.character(program_names),
     as.character(projection_checksum)
   ))

@@ -1,3 +1,8 @@
+# ProReT 0.1.1
+
+- Made content-derived reference checksums portable across operating systems
+  and supported R releases by using the version-2 XDR serialization format.
+
 # ProReT 0.1.0
 
 - Initial basis-agnostic implementation.

@@ -9,7 +9,13 @@ source_files <- list.files(file.path(root, "R"), pattern = "[.]R$",
                            full.names = TRUE)
 for (file in source_files) source(file)
 
-extdata <- file.path(root, "inst", "extdata")
+reference_dir <- commandArgs(trailingOnly = TRUE)
+if (!length(reference_dir)) {
+  reference_dir <- file.path(root, "inst", "extdata")
+} else {
+  reference_dir <- normalizePath(reference_dir[[1L]], winslash = "/",
+                                 mustWork = TRUE)
+}
 specification <- list(
   list(
     drug = "K562_LINCS_drug_program_reference.rds",
@@ -26,12 +32,17 @@ specification <- list(
 )
 
 for (item in specification) {
+  if (!all(file.exists(file.path(reference_dir,
+                                 c(item$basis, item$drug))))) {
+    next
+  }
   basis <- load_program_basis(
-    file.path(extdata, item$basis), gene_column = "entrez_id",
+    file.path(reference_dir, item$basis), gene_column = "entrez_id",
     gene_id_type = "ENTREZID", basis_type = "signed_template"
   )
-  path <- file.path(extdata, item$drug)
+  path <- file.path(reference_dir, item$drug)
   object <- readRDS(path)
+  object$basis_checksum <- basis$audit$checksum
   object$projection_checksum <- basis_projection_checksum(
     basis, object$core_genes
   )
@@ -40,4 +51,13 @@ for (item in specification) {
     object$projection_checksum
   )
   saveRDS(object, path, version = 3)
+  verified <- readRDS(path)
+  verified_checksum <- drug_payload_checksum(
+    verified$signatures, verified$core_genes, verified$program_names,
+    verified$projection_checksum
+  )
+  if (!identical(verified$payload_checksum, verified_checksum)) {
+    stop("Payload checksum did not survive serialization: ", path)
+  }
+  message("Updated integrity metadata: ", path)
 }
