@@ -1,3 +1,9 @@
+# ProReT 0.1.5
+
+- Replaced R-object serialization in drug-payload integrity checks with
+  canonical UTF-8 and big-endian binary encoding, preserving tamper detection
+  across operating systems and R releases.
+
 # ProReT 0.1.4
 
 - Bound file-loaded program bases and precomputed drug references to the exact

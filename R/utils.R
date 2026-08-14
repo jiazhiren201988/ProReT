@@ -76,6 +76,61 @@ hash_object <- function(x) {
   )
 }
 
+hash_text_fields <- function(x) {
+  x <- as.character(x)
+  missing <- is.na(x)
+  x[missing] <- ""
+  x <- enc2utf8(x)
+  con <- rawConnection(raw(0L), open = "wb")
+  on.exit(close(con), add = TRUE)
+  writeBin(as.integer(length(x)), con, size = 4L, endian = "big")
+  for (i in seq_along(x)) {
+    writeBin(as.raw(missing[[i]]), con)
+    bytes <- charToRaw(x[[i]])
+    writeBin(as.integer(length(bytes)), con, size = 4L, endian = "big")
+    if (length(bytes)) writeBin(bytes, con)
+  }
+  digest::digest(rawConnectionValue(con), algo = "sha256", serialize = FALSE)
+}
+
+hash_atomic_column <- function(x) {
+  if (is.factor(x) || inherits(x, c("POSIXct", "POSIXlt", "Date"))) {
+    x <- as.character(x)
+  }
+  if (is.character(x)) {
+    return(hash_text_fields(c("character", x)))
+  }
+  if (is.logical(x)) {
+    missing <- is.na(x)
+    x[missing] <- FALSE
+    payload <- c(charToRaw("logical"), as.raw(missing), as.raw(x))
+    return(digest::digest(payload, algo = "sha256", serialize = FALSE))
+  }
+  if (is.integer(x)) {
+    missing <- is.na(x)
+    x[missing] <- 0L
+    con <- rawConnection(raw(0L), open = "wb")
+    on.exit(close(con), add = TRUE)
+    writeBin(charToRaw("integer"), con)
+    writeBin(as.raw(missing), con)
+    writeBin(x, con, size = 4L, endian = "big")
+    return(digest::digest(rawConnectionValue(con), algo = "sha256",
+                          serialize = FALSE))
+  }
+  if (is.numeric(x)) {
+    missing <- is.na(x)
+    x[missing] <- 0
+    con <- rawConnection(raw(0L), open = "wb")
+    on.exit(close(con), add = TRUE)
+    writeBin(charToRaw("double"), con)
+    writeBin(as.raw(missing), con)
+    writeBin(as.double(x), con, size = 8L, endian = "big")
+    return(digest::digest(rawConnectionValue(con), algo = "sha256",
+                          serialize = FALSE))
+  }
+  hash_text_fields(c(typeof(x), as.character(x)))
+}
+
 hash_numeric_matrix <- function(x, digits = 12L) {
   x <- as.matrix(x)
   storage.mode(x) <- "double"
@@ -105,7 +160,7 @@ basis_projection_checksum <- function(basis, core_genes) {
     stop("core_genes must be unique and present in the basis.", call. = FALSE)
   }
   if (!is.null(basis$source_sha256) && nzchar(basis$source_sha256)) {
-    return(hash_object(list(
+    return(hash_text_fields(c(
       "projection_basis_file_v1", basis$source_sha256,
       as.character(core_genes), enc2utf8(colnames(basis$weights)),
       basis$basis_type
@@ -128,19 +183,10 @@ drug_payload_checksum <- function(signatures, core_genes, program_names,
       any(vapply(signatures, length, integer(1L)) != signature_nrow)) {
     stop("All signature columns must have equal length.", call. = FALSE)
   }
-  canonical_columns <- lapply(seq_along(signatures), function(i) {
-    column <- signatures[[i]]
-    if (is.factor(column)) column <- as.character(column)
-    if (inherits(column, c("POSIXct", "POSIXlt", "Date"))) {
-      column <- as.character(column)
-    }
-    if (is.character(column)) column <- enc2utf8(column)
-    attributes(column) <- NULL
-    column
-  })
-  hash_object(list(
-    as.integer(signature_nrow), enc2utf8(signature_names),
-    vapply(canonical_columns, hash_object, character(1L)),
+  column_hashes <- vapply(signatures, hash_atomic_column, character(1L))
+  hash_text_fields(c(
+    "drug_payload_v2", as.character(signature_nrow),
+    enc2utf8(signature_names), column_hashes,
     as.character(core_genes), as.character(program_names),
     as.character(projection_checksum)
   ))

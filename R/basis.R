@@ -126,7 +126,7 @@ load_program_basis <- function(
   mat <- validate_program_basis(mat, basis_type = basis_type)
   source_sha256 <- file_sha256(file)
   audit <- attr(mat, "proret_audit")
-  audit$checksum <- hash_object(list(
+  audit$checksum <- hash_text_fields(c(
     "basis_file_v1", source_sha256, toupper(gene_id_type), basis_type,
     rownames(mat), colnames(mat)
   ))
