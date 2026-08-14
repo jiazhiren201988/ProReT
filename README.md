@@ -209,11 +209,7 @@ the analysis stops rather than silently disabling quality control.
   cell panel by default (80% compound coverage; each retained drug must cover
   at least 60% of the panel).
 
-## Scope
 
-The package produces drug rankings; it does not claim clinical efficacy.
-Benchmarking and validation belong to the accompanying reproducibility
-workflow, not the model API.
 
 ## Data and licensing
 
