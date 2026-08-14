@@ -104,7 +104,10 @@ basis_projection_checksum <- function(basis, core_genes) {
   if (anyDuplicated(core_genes) || !all(core_genes %in% rownames(basis$weights))) {
     stop("core_genes must be unique and present in the basis.", call. = FALSE)
   }
-  w <- normalize_columns(basis$weights[core_genes, , drop = FALSE])
+  # Bind the reference to the source weights and coordinate order. Hashing
+  # normalized weights would incorporate platform-specific BLAS rounding even
+  # though those differences are numerically immaterial to the projection.
+  w <- basis$weights[core_genes, , drop = FALSE]
   hash_numeric_matrix(w, digits = 12L)
 }
 

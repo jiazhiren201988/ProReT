@@ -1,7 +1,7 @@
 Package: ProReT
 Type: Package
 Title: Program-Level Reversal of Transcriptomes for Drug Repurposing
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(
     person("Jiazhi", "Ren", email = "jiazhiren@stu.njmu.edu.cn",
            role = c("aut", "cre"))

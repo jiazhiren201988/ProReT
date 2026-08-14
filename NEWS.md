@@ -1,3 +1,9 @@
+# ProReT 0.1.3
+
+- Bound projection references to canonical source basis weights rather than
+  platform-computed normalized weights, eliminating BLAS-dependent checksum
+  differences without changing the projection or scoring calculations.
+
 # ProReT 0.1.2
 
 - Canonicalized floating-point basis matrices before hashing so integrity
