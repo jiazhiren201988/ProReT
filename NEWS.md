@@ -1,3 +1,9 @@
+# ProReT 0.1.2
+
+- Canonicalized floating-point basis matrices before hashing so integrity
+  checks are stable across BLAS implementations while remaining sensitive to
+  substantive changes in program weights.
+
 # ProReT 0.1.1
 
 - Made content-derived reference checksums portable across operating systems

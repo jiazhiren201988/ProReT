@@ -6,7 +6,7 @@
 proret_reference_manifest <- function() {
   base_url <- paste0(
     "https://github.com/jiazhiren201988/ProReT/releases/download/",
-    "v0.1.1/"
+    "v0.1.2/"
   )
   x <- data.frame(
     filename = c(
@@ -18,16 +18,16 @@ proret_reference_manifest <- function() {
       "KOLF_LINCS_common_drug_program_reference.rds",
       "KOLF_LINCS_complete_drug_program_reference.rds"
     ),
-    bytes = c(2563164, 3523234, 6042091, 1545134, 6627566, 3646665,
-              3683351),
+    bytes = c(2563164, 3523234, 6042089, 1545134, 6627566, 3646663,
+              3683353),
     sha256 = c(
       "a12c9e04212618d5b319cf184d207f39c1065673d5fd301487a88e33302b3d1c",
       "63ccfa3123b390a3098ca8747bb21460950cc64488dfae76c47834348ce29a6c",
-      "78df421bbc6bfceeb0b4702b9020945ffc352028785e71adcaecac38f5809b0f",
+      "751effd000705edac6578b2f5c026b55320eee73bbf0eb43f7630f44b1d728e2",
       "1dadbbe2154d0475cd410f0909fd554702e93118908b16175a396896b466c921",
       "b6dd7fa60e9547cad5030d812650d4c338a0bbae71ef9ba08a6ed688f46e0aca",
-      "5dbabd57c3cbc30498de4e839bec4cd7737fdd96d0dfba967bdd0c57056f6ca8",
-      "21e1e0bf62395d2cf80db92b9f2e616fc87d3e3060573f4d9390ec7e5b15ccf1"
+      "afb54bb804942aaeb526f2558c202de135d479e75bf920f136937f4a3b60684e",
+      "784c342b95a6abf62c7dc61782123e1df1486f1dfd2231b90f854e4378b96b79"
     ),
     stringsAsFactors = FALSE
   )
@@ -39,9 +39,9 @@ default_reference_cache <- function() {
   configured <- Sys.getenv("PRORET_REFERENCE_CACHE", unset = "")
   if (nzchar(configured)) return(configured)
   if (getRversion() >= "4.0.0") {
-    file.path(tools::R_user_dir("ProReT", "cache"), "references", "v0.1.1")
+    file.path(tools::R_user_dir("ProReT", "cache"), "references", "v0.1.2")
   } else {
-    file.path(path.expand("~"), ".cache", "ProReT", "references", "v0.1.1")
+    file.path(path.expand("~"), ".cache", "ProReT", "references", "v0.1.2")
   }
 }
 

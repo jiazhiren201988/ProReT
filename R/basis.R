@@ -52,7 +52,7 @@ validate_program_basis <- function(
     signed_fraction = mean(basis < 0),
     matrix_rank = qr_rank,
     effective_rank = sum(ev)^2 / sum(ev^2),
-    checksum = hash_object(list(rownames(basis), colnames(basis), unclass(basis)))
+    checksum = hash_numeric_matrix(basis, digits = 15L)
   )
   basis
 }

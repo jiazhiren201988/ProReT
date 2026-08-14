@@ -76,6 +76,18 @@ hash_object <- function(x) {
   )
 }
 
+hash_numeric_matrix <- function(x, digits = 12L) {
+  x <- as.matrix(x)
+  storage.mode(x) <- "double"
+  canonical_values <- formatC(
+    as.vector(x), digits = digits, format = "e", decimal.mark = "."
+  )
+  hash_object(list(
+    as.integer(dim(x)), enc2utf8(rownames(x)), enc2utf8(colnames(x)),
+    canonical_values
+  ))
+}
+
 file_sha256 <- function(path) {
   digest::digest(file = assert_file(path), algo = "sha256", serialize = FALSE)
 }
@@ -93,7 +105,7 @@ basis_projection_checksum <- function(basis, core_genes) {
     stop("core_genes must be unique and present in the basis.", call. = FALSE)
   }
   w <- normalize_columns(basis$weights[core_genes, , drop = FALSE])
-  hash_object(list(core_genes, colnames(w), unclass(w)))
+  hash_numeric_matrix(w, digits = 12L)
 }
 
 drug_payload_checksum <- function(signatures, core_genes, program_names,
