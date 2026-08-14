@@ -124,12 +124,19 @@ load_program_basis <- function(
   mat <- mat[keep, , drop = FALSE]
   rownames(mat) <- ids[keep]
   mat <- validate_program_basis(mat, basis_type = basis_type)
+  source_sha256 <- file_sha256(file)
+  audit <- attr(mat, "proret_audit")
+  audit$checksum <- hash_object(list(
+    "basis_file_v1", source_sha256, toupper(gene_id_type), basis_type,
+    rownames(mat), colnames(mat)
+  ))
+  attr(mat, "proret_audit") <- audit
   out <- list(
     weights = mat,
     basis_type = basis_type,
     source_file = file,
-    source_sha256 = file_sha256(file),
-    audit = attr(mat, "proret_audit")
+    source_sha256 = source_sha256,
+    audit = audit
   )
   class(out) <- "proret_basis"
   out

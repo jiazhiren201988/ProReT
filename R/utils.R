@@ -104,9 +104,15 @@ basis_projection_checksum <- function(basis, core_genes) {
   if (anyDuplicated(core_genes) || !all(core_genes %in% rownames(basis$weights))) {
     stop("core_genes must be unique and present in the basis.", call. = FALSE)
   }
-  # Bind the reference to the source weights and coordinate order. Hashing
-  # normalized weights would incorporate platform-specific BLAS rounding even
-  # though those differences are numerically immaterial to the projection.
+  if (!is.null(basis$source_sha256) && nzchar(basis$source_sha256)) {
+    return(hash_object(list(
+      "projection_basis_file_v1", basis$source_sha256,
+      as.character(core_genes), enc2utf8(colnames(basis$weights)),
+      basis$basis_type
+    )))
+  }
+  # In-memory bases do not have a source file. Their canonicalized weights are
+  # used as a fallback for references created and consumed in the same session.
   w <- basis$weights[core_genes, , drop = FALSE]
   hash_numeric_matrix(w, digits = 12L)
 }

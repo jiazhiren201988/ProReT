@@ -1,3 +1,9 @@
+# ProReT 0.1.4
+
+- Bound file-loaded program bases and precomputed drug references to the exact
+  source-file SHA-256 plus their gene and program coordinates, providing a
+  platform-independent integrity contract for distributed references.
+
 # ProReT 0.1.3
 
 - Bound projection references to canonical source basis weights rather than
