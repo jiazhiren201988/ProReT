@@ -1,15 +1,16 @@
 citHeader("To cite ProReT in publications, use:")
 
 bibentry(
-  bibtype = "Article",
-  title = "ProReT: interpretable drug repositioning through program-space transcriptional reversal",
+  bibtype = "Manual",
+  title = "ProReT: Program-Level Reversal of Transcriptomes for Drug Repurposing",
   author = c(person("Jiazhi", "Ren")),
-  journal = "Bioinformatics",
   year = "2026",
-  note = "Manuscript in preparation",
+  note = "R package version 0.1.6",
+  doi = "10.5281/zenodo.21943239",
+  url = "https://doi.org/10.5281/zenodo.21943239",
   textVersion = paste(
-    "Ren J (2026).",
-    "ProReT: interpretable drug repositioning through program-space",
-    "transcriptional reversal. Bioinformatics, manuscript in preparation."
+    "Ren J (2026). ProReT: Program-Level Reversal of Transcriptomes",
+    "for Drug Repurposing. R package version 0.1.6.",
+    "doi:10.5281/zenodo.21943239."
   )
 )

@@ -2,6 +2,7 @@
 
 [![R-CMD-check](https://github.com/jiazhiren201988/ProReT/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jiazhiren201988/ProReT/actions/workflows/R-CMD-check.yaml)
 [![GitHub release](https://img.shields.io/github/v/release/jiazhiren201988/ProReT)](https://github.com/jiazhiren201988/ProReT/releases)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21943238.svg)](https://doi.org/10.5281/zenodo.21943238)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 
 **ProReT** (Program-space Reversal of Transcription) ranks compounds by the
@@ -224,8 +225,9 @@ the versioned release manifest.
 
 ## Citation and support
 
-Use `citation("ProReT")` for the current citation record. Reproducible bug
-reports can be submitted at
+Use `citation("ProReT")` for the current citation record. The archived v0.1.6
+release is available at https://doi.org/10.5281/zenodo.21943239. Reproducible
+bug reports can be submitted at
 https://github.com/jiazhiren201988/ProReT/issues. Contribution and security
 policies are provided in `CONTRIBUTING.md` and `SECURITY.md`.
 
