@@ -12,3 +12,7 @@
 ^ProReT[.]Rcheck$
 ^ProReT_[0-9.]+[.]tar[.]gz$
 ^CITATION[.]cff$
+^[.]zenodo[.]json$
+^LICENSE[.]md$
+^README_zh[.]md$
+^install_dependencies[.]R$

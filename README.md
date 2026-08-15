@@ -1,5 +1,9 @@
 # ProReT
 
+[![R-CMD-check](https://github.com/jiazhiren201988/ProReT/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jiazhiren201988/ProReT/actions/workflows/R-CMD-check.yaml)
+[![GitHub release](https://img.shields.io/github/v/release/jiazhiren201988/ProReT)](https://github.com/jiazhiren201988/ProReT/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
+
 **ProReT** (Program-space Reversal of Transcription) ranks compounds by the
 inverse alignment between a disease signature and LINCS perturbation
 signatures in a shared, user-supplied gene-program representation.

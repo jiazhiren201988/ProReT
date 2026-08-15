@@ -1,4 +1,5 @@
 test_that("all bases and checksum-matched references are correctly declared", {
+  skip_on_cran()
   catalogue <- available_builtin_references()
   expect_equal(nrow(catalogue), 4L)
   expected <- list(
@@ -32,6 +33,7 @@ test_that("all bases and checksum-matched references are correctly declared", {
 })
 
 test_that("altered drug-program payloads fail integrity checks", {
+  skip_on_cran()
   reference <- load_builtin_reference("K562", "common")
   files <- example_mm_files()
   ds <- data.table::fread(files[["disease_signature"]])

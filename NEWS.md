@@ -1,3 +1,13 @@
+# ProReT 0.1.6
+
+- Added the complete MIT license text for unambiguous repository-level license
+  detection while retaining the standard R package `LICENSE` file.
+- Added machine-readable Zenodo deposit metadata for permanent archival of the
+  publication release.
+- Kept the independently versioned, checksum-verified reference payload frozen
+  at `v0.1.5`; this packaging and documentation release does not alter model
+  calculations or reference data.
+
 # ProReT 0.1.5
 
 - Replaced R-object serialization in drug-payload integrity checks with
