@@ -1,5 +1,5 @@
 {
-  "title": "ProReT: Program-Level Reversal of Transcriptomes for Drug Repurposing",
+  "title": "ProReT: Context-dependent transcriptional program spaces for interpretable transcriptomic drug repurposing",
   "description": "ProReT is a basis-agnostic R package for interpretable transcriptomic drug repurposing using signed program-template alignment, regularized Gram whitening and cross-cell-line aggregation of inverse perturbational alignment.",
   "creators": [
     {

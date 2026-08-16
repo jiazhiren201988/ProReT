@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use ProReT, please cite the software and the accompanying article."
-title: "ProReT: Program-Level Reversal of Transcriptomes for Drug Repurposing"
+title: "ProReT: Context-dependent transcriptional program spaces for interpretable transcriptomic drug repurposing"
 type: software
 authors:
   - family-names: Ren

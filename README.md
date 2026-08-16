@@ -1,4 +1,4 @@
-# ProReT
+# ProReT: Context-dependent transcriptional program spaces for interpretable transcriptomic drug repurposing
 
 [![R-CMD-check](https://github.com/jiazhiren201988/ProReT/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jiazhiren201988/ProReT/actions/workflows/R-CMD-check.yaml)
 [![GitHub release](https://img.shields.io/github/v/release/jiazhiren201988/ProReT)](https://github.com/jiazhiren201988/ProReT/releases)
